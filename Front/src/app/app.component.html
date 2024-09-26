@@ -1,0 +1,36 @@
+<div class="container-scroller">
+  <div class="todo-container">
+    <div class="header">
+      <img src="assets/IMG/Icon2.svg" alt="Iris Logo" class="logo" />
+    </div>
+    <h1>To do List</h1>
+    <div class="todo-controls">
+      <br/>
+      <select class="filter" [(ngModel)]="filter" (change)="applyFilter()">
+        <option value="">All</option>
+        <option value="1">Done</option>
+        <option value="0">To Do</option>
+      </select>
+      <br/>
+      <input placeholder="Placeholder" class="add-input" [(ngModel)]="newTask"/>
+      <button class="add-btn" (click)="addTask()">+</button>
+    </div>
+    <div class="todo-list">
+      <h2 *ngIf="filter==''">All</h2>
+      <h2 *ngIf="filter=='1'">Done</h2>
+      <h2 *ngIf="filter=='0'">To Do</h2>
+
+      <div class="todo-item" *ngFor="let task of paginatedTasks">
+        <mat-checkbox class="todo-checkbox" [(ngModel)]="task.estado" (change)="changeState(task)">{{ task.name }}</mat-checkbox>
+        <button class="delete-btn" (click)="deleteTask(task)">✖</button>
+      </div>
+      
+      <div class="pagination-controls">
+        <button (click)="previousPage()" [disabled]="currentPage === 0">Previous</button>
+        <button (click)="nextPage()" [disabled]="(currentPage + 1) * pageSize >= taskMostrar.length">Next</button>
+      </div>
+    </div>
+  </div>  
+</div>
+
+<div style="width: 800px;"><canvas id="ctx"></canvas></div>
